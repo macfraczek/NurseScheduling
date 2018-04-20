@@ -1,0 +1,50 @@
+﻿Hard Constraints
+Day
+1.	Cover needs to be fulfilled (i.e. no shifts must be left unassigned).
+a.	Na każdej zmianie musi być jakaś pielegniarka
+2.	For each day a nurse may start only one shift.
+a.	W każdy dzień pielęgniarka może rozpocząć tylko jedną zmianę
+3.	Within a scheduling period a nurse is allowed to exceed the number of hours for whichthey are available for their department by at most 4 hours.
+a.	W tygodniu pielęgniarka może przekroczyć liczbę swoich godzin, maksymalnie o 4 godziny
+4.	A nurse must receive at least 2 weekends off duty per 5 week period. A weekend off duty lasts 60 hours including Saturday 00:00 to Monday 04:00.
+a.	Pielęgniarka musi otrzymywać co najmniej 2 weekendy wolne od pracy za okres 5 tygodni. Weekend wolny trwa 60 godzin, w tym w sobotę od 00:00 do poniedziałku 04:00.
+5.	During any period of 24 consecutive hours, at least 11 hours of rest is required.
+a.	W dowolnym okresie 24 kolejnych godzin wymagana jest co najmniej 11 godzin odpoczynku.
+i.	LATE -> LATE or NIGHT 
+ii.	NIGHT -> NIGHT
+6.	The number of consecutive shifts (workdays) is at most 6.
+a.	Liczba kolejnych zmian (dni robocze) wynosi co najwyżej 6.
+Night
+1.	The maximum number of night shifts is 3 per period of 5 consecutive weeks.
+a.	Maksymalna liczba NIGHT to 3 na okres 5 kolejnych tygodni.
+2.	A night shift has to be followed by at least 14 hours rest. An exception is that once in a period of 21 days for 24 consecutive hours, the resting time may be reduced to 8 hours.
+a.	Po nocnej zmianie musi nastąpić odpoczynek trwający co najmniej 14 godzin. Wyjątkiem jest to, że raz w okresie 21 dni przez 24 kolejne godziny, czas odpoczynku może być skrócony do 8 godzin.
+3.	 Following a series of at least 2 consecutive night shifts a 42 hours rest is required. 
+a.	Po serii co najmniej dwóch kolejnych nocnych zmian wymagany jest 42-godzinny odpoczynek
+4.	The number of consecutive night shifts is at most 3.
+a.	Liczba kolejnych NIGHT wynosi maksymalnie 3 
+
+
+Soft Constraints
+1000 kary
+
+1. 	For the period of Friday 22:00 to Monday 0:00 a nurse should have either no shifts or at least 2 shifts (‘Complete Weekend’).
+W piatek LATE i NIGHT odpada jeżeli wolne
+3. 	For employees with availability of 30-48 hours per week, the length of a series of night shifts should be within the range 2-3. It could be before another series.
+
+10 kary
+
+6. 	For employees with availability of 30-48 hours per week, within one week the number of shifts is within the range 4- 5.
+8. 	For employees with availability of 30-48 hours per week, the length of a series of shifts should be within the range of 4-6.
+11. 	For all employees the length of a series of LATE shifts should be within the range of 2-3. It could be within another series.
+5 kary
+
+12. 	An early shift after a day shift should be avoided.
+
+
+
+ 
+Time -> number
+Nurse 36 h  12 
+Nurse 32 h  1
+Nurse 20 h  3
