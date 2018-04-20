@@ -24,16 +24,187 @@ namespace NurseScheduling
                 }
             }
         }
+        
+
+        public void SetSchedule(NurseList nurseAllList)
+        {
+            SetNight(nurseAllList);
+            //TEMPLATE_LOOP_DAY_NURSES(nurseAllList);
+            for (int i = 0; i < 5; i++)
+            {
+                //early
+                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
+                {
+                    // 3 weekendy na 5
+                    if (i > 2)
+                        if (nurseAllList.RetTheNurse[j].ListShifts[(i - 1) * 7 + 5] != null && nurseAllList.RetTheNurse[j].ListShifts[(i - 2) * 7 + 5] != null)
+                        {
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 0;
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 0;
+                        }
+                    // pielegniarka wolne
+                    if (nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] != null || nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] != null)
+                        continue;
 
 
+                    if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[j], i) >= 12)
+                    {
+                        schedDayList[i * 7 + 5].Early[0] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 1;
+                        schedDayList[i * 7 + 6].Early[0] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 1;
+                        break;
+                    }
+                }
+                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
+                {
+                    // 3 weekendy na 5
+                    if (i > 2)
+                        if (nurseAllList.RetTheNurse[j].ListShifts[(i - 1) * 7 + 5] != null && nurseAllList.RetTheNurse[j].ListShifts[(i - 2) * 7 + 5] != null)
+                        {
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 0;
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 0;
+                        }
+                    // pielegniarka wolne
+                    if (nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] != null || nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] != null)
+                        continue;
 
-        public void SetNight(NurseList nurseAllList)
+                    if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[j], i) >= 12)
+                    {
+                        schedDayList[i * 7 + 5].Early[1] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 1;
+                        schedDayList[i * 7 + 6].Early[1] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 1;
+                        break;
+                    }
+                }
+                
+                //day
+                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
+                {
+                    // 3 weekendy na 5
+                    if (i > 2)
+                        if (nurseAllList.RetTheNurse[j].ListShifts[(i - 1) * 7 + 5] != null && nurseAllList.RetTheNurse[j].ListShifts[(i - 2) * 7 + 5] != null)
+                        {
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 0;
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 0;
+                        }
+                    // pielegniarka wolne
+                    if (nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] != null || nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] != null)
+                        continue;
+
+                    if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[j], i) >= 12)
+                    {
+                        schedDayList[i * 7 + 5].Day[0] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 2;
+                        schedDayList[i * 7 + 6].Day[0] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 2;
+                        break;
+                    }
+                }
+                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
+                {
+                    // 3 weekendy na 5
+                    if (i > 2)
+                        if (nurseAllList.RetTheNurse[j].ListShifts[(i - 1) * 7 + 5] != null && nurseAllList.RetTheNurse[j].ListShifts[(i - 2) * 7 + 5] != null)
+                        {
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 0;
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 0;
+                        }
+                    // pielegniarka wolne
+                    if (nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] != null || nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] != null)
+                        continue;
+
+                    if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[j], i) >= 12)
+                    {
+                        schedDayList[i * 7 + 5].Day[1] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 2;
+                        schedDayList[i * 7 + 6].Day[1] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 2;
+                        break;
+                    }
+                }
+                // night
+                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
+                {
+                    // 3 weekendy na 5
+                    if (i > 2)
+                        if (nurseAllList.RetTheNurse[j].ListShifts[(i - 1) * 7 + 5] != null && nurseAllList.RetTheNurse[j].ListShifts[(i - 2) * 7 + 5] != null)
+                        {
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 0;
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 0;
+                        }
+                    // pielegniarka wolne
+                    if (nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] != null || nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] != null)
+                        continue;
+
+                    if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[j], i) >= 12)
+                    {
+                        schedDayList[i * 7 + 5].Late[0] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 3;
+                        schedDayList[i * 7 + 6].Late[0] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 3;
+                        break;
+                    }
+                }
+                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
+                {
+                    // 3 weekendy na 5
+                    if (i > 2)
+                        if (nurseAllList.RetTheNurse[j].ListShifts[(i - 1) * 7 + 5] != null && nurseAllList.RetTheNurse[j].ListShifts[(i - 2) * 7 + 5] != null)
+                        {
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 0;
+                            nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 0;
+                        }
+                    // pielegniarka wolne
+                    if (nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] != null || nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] != null)
+                        continue;
+
+                    if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[j], i) >= 12)
+                    {
+                        schedDayList[i * 7 + 5].Late[1] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 5] = 3;
+                        schedDayList[i * 7 + 6].Late[1] = nurseAllList.RetTheNurse[j].Number;
+                        nurseAllList.RetTheNurse[j].ListShifts[i * 7 + 6] = 3;
+                        break;
+                    }
+                }
+                
+            }
+
+
+        }
+
+        private void TEMPLATE_LOOP_DAY_NURSES(NurseList nurseAllList)
+        {
+            for (int i = 0; i < schedDayList.Count; i++)  // day 0-34
+            {
+                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
+                {
+
+                }
+            }
+        }
+
+        private static int CalculateNurseTimeWeekLeft(Nurse theNurse,int nrWeek)
+        {
+            int shiftCount = theNurse.Time;
+            for (int i = 0; i < 7; i++)
+            {
+                if (theNurse.ListShifts[nrWeek * 7 + i] > 0)
+                {
+                    shiftCount -= 8;
+                }
+            }
+            return shiftCount;
+        }
+
+        private void SetNight(NurseList nurseAllList)
         {
             SetNightWeekend(nurseAllList);
             SetNightMonFir(nurseAllList);
             SetNightDayOff(nurseAllList);
         }
-
         private void SetNightDayOff(NurseList nurseAllList)
         {
             for (int i = 0; i < schedDayList.Count; i++)  // day 0-34
@@ -112,7 +283,6 @@ namespace NurseScheduling
                 }
                 schedDayList[i * 7 + 4].Night = nurseAllList.RetTheNurse[randomNurse].Number;
                 nurseAllList.RetTheNurse[randomNurse].ListShifts[i * 7 + 4] = 4;
-                Console.WriteLine(randomNurse);
                 schedDayList[i * 7 + 5].Night = nurseAllList.RetTheNurse[randomNurse].Number;
                 nurseAllList.RetTheNurse[randomNurse].ListShifts[i * 7 + 5] = 4;
                 schedDayList[i * 7 + 6].Night = nurseAllList.RetTheNurse[randomNurse].Number;

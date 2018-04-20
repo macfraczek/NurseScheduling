@@ -12,7 +12,7 @@ namespace NurseScheduling
         public string Name { get; set; }
         public int Number { get; set; }
 
-        public short Time { get; set; }
+        public int Time { get; private set; }
         public int?[] ListShifts { get => listShifts; set => listShifts = value; }
 
         private int?[] listShifts = new int?[35];

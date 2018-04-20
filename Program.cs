@@ -14,7 +14,7 @@ namespace NurseScheduling
 
             NurseList nurseList = new NurseList();
             var sche = new Schedule();
-            sche.SetNight(nurseList);
+            sche.SetSchedule(nurseList);
 
 
             sche.Print();
