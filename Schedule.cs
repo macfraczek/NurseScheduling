@@ -24,26 +24,47 @@ namespace NurseScheduling
                 }
             }
         }
-        
+
+
+
         public void SetNight(NurseList nurseAllList)
         {
             SetNightWeekend(nurseAllList);
+            SetNightMonFir(nurseAllList);
+            SetNightDayOff(nurseAllList);
+        }
 
+        private void SetNightDayOff(NurseList nurseAllList)
+        {
+            for (int i = 0; i < schedDayList.Count; i++)  // day 0-34
+            {
+                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
+                    // 2 dni urlopu po nocnych zmianach
+                    if (i > 2 && nurseAllList.RetTheNurse[j].ListShifts[i - 1] == 4 && nurseAllList.RetTheNurse[j].ListShifts[i - 2] == 4 && nurseAllList.RetTheNurse[j].ListShifts[i] != 4)
+                    {
 
-            
+                        nurseAllList.RetTheNurse[j].ListShifts[i] = 0;
+                        if (i < schedDayList.Count - 1)
+                            nurseAllList.RetTheNurse[j].ListShifts[i + 1] = 0;
+                        //break;
+                    }
+            }
+        }
+        private void SetNightMonFir(NurseList nurseAllList)
+        {
             for (int i = 0; i < schedDayList.Count; i++)  // day 0-34
             {
                 //weekendy osobno
-                if (i%7 == 4 ||i%7 == 5 ||i%7 == 6)
+                if (i % 7 == 4 || i % 7 == 5 || i % 7 == 6)
                     continue;
                 for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
                 {
                     //Console.WriteLine("day:{0}\t nurse:{1}",i,j+1);
-                    bool test =false;
+                    bool test = false;
                     // czy wolna pielegniarka
                     if (nurseAllList.RetTheNurse[j].ListShifts[i] == null) test = true;
                     // 3 nocne zmiany
-                    for (int k = 0,temp =0; k < schedDayList.Count; k++)
+                    for (int k = 0, temp = 0; k < schedDayList.Count; k++)
                     {
                         if (nurseAllList.RetTheNurse[j].ListShifts[k] == 4) temp++;
                         if (temp >= 3) test = false;
@@ -60,25 +81,12 @@ namespace NurseScheduling
                         //schedDayList[i].Night = 6;
                         //Console.WriteLine("kod");
                     }
-#if false
-                    // trzeba poprawic
-                    // 2 dni urlopu po nocnych zmianach
-                    if (i > 2 && nurseAllList.RetTheNurse[j].ListShifts[i - 1] == 4 && nurseAllList.RetTheNurse[j].ListShifts[i - 2] == 4)
-                    {
 
-                        nurseAllList.RetTheNurse[j].ListShifts[i] = 0;
-                        if (i < schedDayList.Count - 1)
-                            nurseAllList.RetTheNurse[j].ListShifts[i + 1] = 0;
-                        test = false;
-                        //break;
-                    } 
-#endif
 
                 }
 
             }
         }
-
         private void SetNightWeekend(NurseList nurseAllList)
         {
             Random a = new Random();
