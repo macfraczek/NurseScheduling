@@ -13,9 +13,9 @@ namespace NurseScheduling
         public int Number { get; set; }
 
         public short Time { get; set; }
-        public int[] ListShifts { get => listShifts; set => listShifts = value; }
+        public int?[] ListShifts { get => listShifts; set => listShifts = value; }
 
-        private int[] listShifts = new int[35];
+        private int?[] listShifts = new int?[35];
 
 
         public Nurse(int numb,short time)
@@ -25,10 +25,6 @@ namespace NurseScheduling
             Number = numb;
             //Console.WriteLine("{0} was created - {1} h/week.",Name,Time);
 
-            for (int i = 0; i < listShifts.Length; i++)
-            {
-                listShifts[i] = 8;
-            }
         }
         public void Print()
         {
@@ -36,8 +32,7 @@ namespace NurseScheduling
             {
                 for (int j = 0; j < 7; j++)
                 {
-                    // osiem to domyslnie brak zmiany, a czemu 8 ? bo tak, 8 zmian na pewno nie bedzie.
-                    if (listShifts[i * 7 + j] == 8)
+                    if (listShifts[i * 7 + j] == null)
                     {
                         Console.Write("- ");
                     }
