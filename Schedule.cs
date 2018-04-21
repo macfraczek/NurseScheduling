@@ -285,10 +285,7 @@ namespace NurseScheduling
             {
                 if (theNurse.ListShifts[nrWeek * 7 + i] > 0)
                 {
-                    if (i == 4)
                         shiftCount -= 8;
-                    else
-                        shiftCount -= 9;
                 }
             }
             if (nrWeek > 0)
@@ -299,10 +296,7 @@ namespace NurseScheduling
                 {
                     if (theNurse.ListShifts[(nrWeek-1) * 7 + i] > 0)
                     {
-                        if (i == 4)
                             shiftLastWeek -= 8;
-                        else
-                            shiftLastWeek -= 9;
                     }
                 }
                 if (shiftLastWeek < 0)
@@ -341,7 +335,7 @@ namespace NurseScheduling
                     bool test = false;
                     // czy wolna pielegniarka
                     if (nurseAllList.RetTheNurse[j].ListShifts[i] == null) test = true;
-                    if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[j], (int)i/7) < 4) test = false;
+                    //if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[j], i/7) < 4) test = false;
                     // 3 nocne zmiany
                     for (int k = 0, temp = 0; k < schedDayList.Count; k++)
                     {

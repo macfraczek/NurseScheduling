@@ -46,10 +46,7 @@ namespace NurseScheduling
                 {
                     if (ListShifts[i * 7 + j] > 0)
                     {
-                        if (j == 4)
                             shiftCount += 8;
-                        else
-                            shiftCount += 9;
                     }
                 }
                 Console.WriteLine(shiftCount);
