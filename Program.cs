@@ -22,7 +22,7 @@ namespace NurseScheduling
             
             foreach (var item in nurseList.RetTheNurse)
             {
-                Console.WriteLine("{0}",item.Name);
+                Console.WriteLine("{0} -{1}h",item.Name,item.Time);
                 item.Print();
             }
 

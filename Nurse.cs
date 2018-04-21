@@ -9,13 +9,14 @@ namespace NurseScheduling
 
     public class Nurse
     {
+        private int?[] listShifts = new int?[35];
+
+
         public string Name { get; set; }
         public int Number { get; set; }
-
         public int Time { get; private set; }
         public int?[] ListShifts { get => listShifts; set => listShifts = value; }
 
-        private int?[] listShifts = new int?[35];
 
 
         public Nurse(int numb,short time)
@@ -23,8 +24,6 @@ namespace NurseScheduling
             Name = "Nurse: "+numb.ToString();
             Time = time;
             Number = numb;
-            //Console.WriteLine("{0} was created - {1} h/week.",Name,Time);
-
         }
         public void Print()
         {
@@ -39,7 +38,6 @@ namespace NurseScheduling
                     else
                     {
                         Console.Write("{0} ", listShifts[i * 7 + j]);
-
                     }
                 }
                 Console.WriteLine("");
