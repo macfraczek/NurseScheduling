@@ -40,7 +40,19 @@ namespace NurseScheduling
                         Console.Write("{0} ", listShifts[i * 7 + j]);
                     }
                 }
-                Console.WriteLine("");
+                Console.Write(" ");
+                int shiftCount = 0;
+                for (int j = 0; j < 7; j++)
+                {
+                    if (ListShifts[i * 7 + j] > 0)
+                    {
+                        if (j == 4)
+                            shiftCount += 8;
+                        else
+                            shiftCount += 9;
+                    }
+                }
+                Console.WriteLine(shiftCount);
             }
         }
     }
