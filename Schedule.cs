@@ -37,9 +37,6 @@ namespace NurseScheduling
             SetWeekEndDay(nurseAllList);
 
             SetWeekNurses_Hour(nurseAllList, 4);
-            SetWeekNurses_Hour(nurseAllList, 4);
-            SetWeekNurses_Hour(nurseAllList, 4);
-            SetWeekNurses_Hour(nurseAllList, 4);
 
         }
 
@@ -385,13 +382,13 @@ namespace NurseScheduling
             }
         }
 
-        public void Print()
+        public void WriteSchedule()
         {
             for (int i = 0; i < 5; i++)
             {
                 for (int j = 0; j < 5; j++)
                 {
-                    Console.WriteLine("\tDAY {0}", i * 7 + j+1);
+                    Console.WriteLine("\tDAY {0}", i * 7 + j + 1);
                     Console.WriteLine("Early 1 : Nurse {0}", schedDayList[i * 7 + j].Early[0]);
                     Console.WriteLine("Early 2 : Nurse {0}", schedDayList[i * 7 + j].Early[1]);
                     Console.WriteLine("Early 3 : Nurse {0}", schedDayList[i * 7 + j].Early[2]);
@@ -401,23 +398,54 @@ namespace NurseScheduling
                     Console.WriteLine("Late 1  : Nurse {0}", schedDayList[i * 7 + j].Late[0]);
                     Console.WriteLine("Late 2  : Nurse {0}", schedDayList[i * 7 + j].Late[1]);
                     Console.WriteLine("Late 3  : Nurse {0}", schedDayList[i * 7 + j].Late[2]);
-                    Console.WriteLine("Night   : Nurse {0}",schedDayList[ i * 7 + j].Night);
+                    Console.WriteLine("Night   : Nurse {0}", schedDayList[i * 7 + j].Night);
                     Console.WriteLine("----------------------");
 
                 }
                 for (int j = 0; j < 2; j++)
                 {
-                    Console.WriteLine("\tDAY {0} Weekend", i * 7 + j+6);
-                    Console.WriteLine("Early 1 : Nurse {0}", schedDayList[i * 7 + j+5].Early[0]);
-                    Console.WriteLine("Early 2 : Nurse {0}", schedDayList[i * 7 + j+5].Early[1]);
-                    Console.WriteLine("Day 1   : Nurse {0}", schedDayList[i * 7 + j+5].Day[0]);
-                    Console.WriteLine("Day 2   : Nurse {0}", schedDayList[i * 7 + j+5].Day[1]);
-                    Console.WriteLine("Late 1  : Nurse {0}", schedDayList[i * 7 + j+5].Late[0]);
-                    Console.WriteLine("Late 2  : Nurse {0}", schedDayList[i * 7 + j+5].Late[1]);
-                    Console.WriteLine("Night   : Nurse {0}", schedDayList[i * 7 + j+5].Night);
+                    Console.WriteLine("\tDAY {0} Weekend", i * 7 + j + 6);
+                    Console.WriteLine("Early 1 : Nurse {0}", schedDayList[i * 7 + j + 5].Early[0]);
+                    Console.WriteLine("Early 2 : Nurse {0}", schedDayList[i * 7 + j + 5].Early[1]);
+                    Console.WriteLine("Day 1   : Nurse {0}", schedDayList[i * 7 + j + 5].Day[0]);
+                    Console.WriteLine("Day 2   : Nurse {0}", schedDayList[i * 7 + j + 5].Day[1]);
+                    Console.WriteLine("Late 1  : Nurse {0}", schedDayList[i * 7 + j + 5].Late[0]);
+                    Console.WriteLine("Late 2  : Nurse {0}", schedDayList[i * 7 + j + 5].Late[1]);
+                    Console.WriteLine("Night   : Nurse {0}", schedDayList[i * 7 + j + 5].Night);
                     Console.WriteLine("----------------------");
                 }
             }
+        }
+
+
+        public void WriteScheduleTable()
+        {
+            Console.WriteLine("{0,-8}  {1,-3}{2,-3}{3,-3}  {4,-3}{5,-3}{6,-3}  {7,-3}{8,-3}{9,-3}  {10}", "Day", "E1", "E2", "E3"
+                                        , "D1", "D2", "D3", "L1", "L2", "L3","N");
+            Console.WriteLine("---------------------------------------------");
+            for (int i = 0; i < 35; i++)
+            {
+                Console.Write("Day {0,-4}",i+1);
+                Console.Write("  {0,-2} ",schedDayList[i].Early[0]);
+                Console.Write("{0,-2} ", schedDayList[i].Early[1]);
+                    if (i % 7 <5) { Console.Write("{0,-2} ", schedDayList[i].Early[2]); }
+                    else { Console.Write("{0,-2} ", " "); }
+                Console.Write("  {0,-2} ", schedDayList[i].Day[0]  );
+                Console.Write("{0,-2} ", schedDayList[i].Day[1]  );
+                if (i % 7 < 5)
+                    Console.Write("{0,-2} ", schedDayList[i].Day[2]  );
+                else
+                    Console.Write("{0,-2} ", " ");
+                Console.Write("  {0,-2} ", schedDayList[i].Late[0] );
+                Console.Write("{0,-2} ", schedDayList[i].Late[1] );
+                if (i % 7 < 5)
+                    Console.Write("{0,-2} ", schedDayList[i].Late[2] );
+                else
+                    Console.Write("{0,-2} ", " ");
+                Console.Write("  {0,-2} ", schedDayList[i].Night   );
+                Console.WriteLine();
+            }
+            Console.WriteLine();
         }
     }
 }

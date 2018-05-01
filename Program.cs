@@ -16,15 +16,13 @@ namespace NurseScheduling
             var sche = new Schedule();
             sche.SetSchedule(nurseList);
 
+            //sche.WriteSchedule();
+            sche.WriteScheduleTable();
 
-            sche.Print();
 
-            
-            foreach (var item in nurseList.RetTheNurse)
-            {
-                Console.WriteLine("{0} -{1}h",item.Name,item.Time);
-                item.Print();
-            }
+            nurseList.WriteShiftsTable();
+            nurseList.WriteShifts();
+
 
             Console.ReadKey();
         }

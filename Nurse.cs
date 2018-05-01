@@ -46,11 +46,30 @@ namespace NurseScheduling
                 {
                     if (ListShifts[i * 7 + j] > 0)
                     {
-                            shiftCount += 8;
+                        shiftCount += 8;
                     }
                 }
                 Console.WriteLine(shiftCount);
             }
+        }
+        public void PrintLine()
+        {
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    if (listShifts[i * 7 + j] == null)
+                    {
+                        Console.Write("- ");
+                    }
+                    else
+                    {
+                        Console.Write("{0} ", listShifts[i * 7 + j]);
+                    }
+                }
+                Console.Write("  ");
+            }
+            Console.WriteLine();
         }
     }
 
@@ -79,7 +98,33 @@ namespace NurseScheduling
         }
 
         public List<Nurse> RetTheNurse => listNurse;
-
         public List<Nurse> ListNurse { get => listNurse; set => listNurse = value; }
+
+        public void WriteShiftsTable()
+        {
+            Console.Write("No.        ");
+            for (int i = 0; i < 35; i++)
+            {
+                Console.Write("{0,-2}", i + 1);
+                if (i%7 == 6)
+                    Console.Write("  ");
+            }
+            Console.WriteLine();
+            Console.WriteLine("------------------------------------------------");
+            foreach (var item in RetTheNurse)
+            {
+                Console.Write(String.Format($"{item.Name,-11}"));
+                item.PrintLine();
+            }
+            Console.WriteLine();
+        }
+        public void WriteShifts()
+        {
+            foreach (var item in RetTheNurse)
+            {
+                Console.WriteLine("{0} -{1}h", item.Name, item.Time);
+                item.Print();
+            }
+        }
     }
 }
