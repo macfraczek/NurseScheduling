@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NurseScheduling
 {
-    class Schedule
+    public class Schedule
     {
         List<Days> schedDayList= new List<Days>();
 
@@ -28,7 +28,6 @@ namespace NurseScheduling
 
         public void SetSchedule(NurseList nurseAllList)
         {
-            //TEMPLATE_LOOP_DAY_NURSES(nurseAllList);
             SetNightWeekend(nurseAllList);
             SetNightMonFir(nurseAllList);
             SetNightDayOff(nurseAllList);
@@ -37,6 +36,7 @@ namespace NurseScheduling
             SetWeekEndDay(nurseAllList);
 
             SetWeekNurses_Hour(nurseAllList, 4);
+            //SetWeekNurses_Hour(nurseAllList, 4);
 
         }
 
@@ -46,21 +46,27 @@ namespace NurseScheduling
             {
                 for (int j = 0; j < 5; j++) // day mon-fri in week
                 {
-                    for (int k = 0; k < 3; k++) //shifts E
+                    //shifts E
+                    for (int k = 0; k < 3; k++) 
                     {
-                        //early
-                        for (int l = 0; l < nurseAllList.RetTheNurse.Count; l++) // nurses 
+                        //nurses
+                        for (int l = 0; l < nurseAllList.RetTheNurse.Count; l++) 
                         {
                             // pielegniarka wolne
                             if (nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j] != null)
                                 continue;
-                            // max seria 3 dni
-                            if (j > 3 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] > 0 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 2] > 0
+                            // zmiana pusta
+                            if (schedDayList[i * 7 + j].Early[k]  != 0)
+                                continue;
+
+                            // max seria 3 dni dla the nurse
+                            if (i * 7 + j >2 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] > 0 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 2] > 0
                                 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 3] > 0)
                             {
-                                nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] = 0;
+                                nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j ] = 0;
                                 continue;
                             }
+
                             if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[l], i) >= hours)
                             {
                                 schedDayList[i * 7 + j].Early[k] = nurseAllList.RetTheNurse[l].Number;
@@ -70,7 +76,8 @@ namespace NurseScheduling
                         }
 
                     }
-                    for (int k = 0; k < 3; k++) //shifts D
+                    //shifts D
+                    for (int k = 0; k < 3; k++)
                     {
                         //day
                         for (int l = nurseAllList.RetTheNurse.Count - 1; l > 0; l--) // nurses 
@@ -78,11 +85,15 @@ namespace NurseScheduling
                             // pielegniarka wolne
                             if (nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j] != null)
                                 continue;
+                            // zmiana pusta
+                            if (schedDayList[i * 7 + j].Day[k] != 0)
+                                continue;
+
                             // max seria 3 dni
-                            if (j > 3 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] > 0 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 2] > 0
+                            if (i * 7 + j > 2 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] > 0 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 2] > 0
                                 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 3] > 0)
                             {
-                                nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] = 0;
+                                nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j ] = 0;
                                 continue;
                             }
                             if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[l], i) >= hours)
@@ -93,7 +104,8 @@ namespace NurseScheduling
                             }
                         }
                     }
-                    for (int k = 0; k < 3; k++) //shifts L
+                    //shifts L
+                    for (int k = 0; k < 3; k++) 
                     {
                         //late
                         for (int l = nurseAllList.RetTheNurse.Count - 1; l > 0; l--) // nurses 
@@ -101,11 +113,15 @@ namespace NurseScheduling
                             // pielegniarka wolne
                             if (nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j] != null)
                                 continue;
+                            // zmiana pusta
+                            if (schedDayList[i * 7 + j].Late[k] != 0)
+                                continue;
+
                             // max seria 3 dni
-                            if (j > 3 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] > 0 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 2] > 0
+                            if (i * 7 + j > 2 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] > 0 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 2] > 0
                                 && nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 3] > 0)
                             {
-                                nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j - 1] = 0;
+                                nurseAllList.RetTheNurse[l].ListShifts[i * 7 + j ] = 0;
                                 continue;
                             }
                             if (CalculateNurseTimeWeekLeft(nurseAllList.RetTheNurse[l], i) >= hours)
@@ -263,18 +279,7 @@ namespace NurseScheduling
                 }
             }
         }
-
-        private void TEMPLATE_LOOP_DAY_NURSES(NurseList nurseAllList)
-        {
-            for (int i = 0; i < schedDayList.Count; i++)  // day 0-34
-            {
-                for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
-                {
-
-                }
-            }
-        }
-
+        
         private static int CalculateNurseTimeWeekLeft(Nurse theNurse,int nrWeek)
         {
             int shiftCount = theNurse.Time;
