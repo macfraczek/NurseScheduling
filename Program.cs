@@ -21,7 +21,7 @@ namespace NurseScheduling
 
 
             nurseList.WriteShiftsTable();
-            //nurseList.WriteShifts();
+            nurseList.WriteShifts();
 
 
             Console.ReadKey();
