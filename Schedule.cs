@@ -10,6 +10,8 @@ namespace NurseScheduling
     {
         List<Days> schedDayList= new List<Days>();
 
+        public List<Days> SchedDayList { get => schedDayList; set => schedDayList = value; }
+
         public Schedule()
         {
             for (int i = 0; i < 5; i++)

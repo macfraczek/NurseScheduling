@@ -16,9 +16,10 @@ namespace NurseScheduling
             var sche = new Schedule();
             sche.SetSchedule(nurseList);
 
+            Tests.InitializeTests(nurseList, sche.SchedDayList);
+
             //sche.WriteSchedule();
             sche.WriteScheduleTable();
-
 
             nurseList.WriteShiftsTable();
             nurseList.WriteShifts();

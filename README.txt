@@ -1,1 +1,1 @@
-﻿Czas z poprzednich zmian wsadzony w komentarz. Schedult -> full time calc.
+﻿
