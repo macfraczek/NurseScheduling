@@ -153,7 +153,7 @@ namespace NurseScheduling
             foreach (var item in RetTheNurse)
             {
                 a+=item.ReturnLine();
-                a += "\r";
+                a += "\r\n";
             }
             return a;
         }

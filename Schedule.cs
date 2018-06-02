@@ -477,24 +477,24 @@ namespace NurseScheduling
             String a = "";
             for (int i = 0; i < 35; i++)
             {
-                a += string.Format("  {0,-2} ,",schedDayList[i].Early[0]);
-                a += string.Format("{0,-2} ,", schedDayList[i].Early[1]);
-                    if (i % 7 <5) { a += string.Format("{0,-2} ,", schedDayList[i].Early[2]); }
-                    else { a += string.Format("{0,-2} ,", " "); }
-                a += string.Format("  {0,-2} ,", schedDayList[i].Day[0]  );
-                a += string.Format("{0,-2} ,", schedDayList[i].Day[1]  );
+                a += string.Format("  {0,-2}, ",schedDayList[i].Early[0]);
+                a += string.Format("{0,-2}, ", schedDayList[i].Early[1]);
+                    if (i % 7 <5) { a += string.Format("{0,-2}, ", schedDayList[i].Early[2]); }
+                    else { a += string.Format("{0,-2}, ", " "); }
+                a += string.Format("  {0,-2}, ", schedDayList[i].Day[0]  );
+                a += string.Format("{0,-2}, ", schedDayList[i].Day[1]  );
                 if (i % 7 < 5)
-                    a += string.Format("{0,-2} ,", schedDayList[i].Day[2]  );
+                    a += string.Format("{0,-2}, ", schedDayList[i].Day[2]  );
                 else
-                    a += string.Format("{0,-2} ,", " ");
-                a += string.Format("  {0,-2} ,", schedDayList[i].Late[0] );
-                a += string.Format("{0,-2} ,", schedDayList[i].Late[1] );
+                    a += string.Format("{0,-2}, ", " ");
+                a += string.Format("  {0,-2}, ", schedDayList[i].Late[0] );
+                a += string.Format("{0,-2}, ", schedDayList[i].Late[1] );
                 if (i % 7 < 5)
-                    a += string.Format("{0,-2} ,", schedDayList[i].Late[2] );
+                    a += string.Format("{0,-2}, ", schedDayList[i].Late[2] );
                 else
-                    a += string.Format("{0,-2} ,", " ");
-                a += string.Format("  {0,-2} ,", schedDayList[i].Night   );
-                a += string.Format("\r");
+                    a += string.Format("{0,-2}, ", " ");
+                a += string.Format("  {0,-2}, ", schedDayList[i].Night   );
+                a += string.Format("\r\n");
             }
             return a;
         }

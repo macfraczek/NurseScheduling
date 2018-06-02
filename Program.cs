@@ -24,7 +24,7 @@ namespace NurseScheduling
             nurseList.WriteShiftsTable();
             nurseList.WriteShifts();
 
-            SaveTo.SaveToCvx(sche,nurseList);
+            SaveTo.SaveToCsv(sche,nurseList);
 
 
             Console.ReadKey();

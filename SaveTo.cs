@@ -9,7 +9,7 @@ namespace NurseScheduling
     static class SaveTo
     {
 
-        internal static void SaveToCvx(Schedule sche, NurseList nurseList)
+        internal static void SaveToCsv(Schedule sche, NurseList nurseList)
         {
             using (System.IO.StreamWriter file =
            new System.IO.StreamWriter(@"C:\nurses\ScheduleCSV.csv"))
