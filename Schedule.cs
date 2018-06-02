@@ -334,7 +334,8 @@ namespace NurseScheduling
             {
                 for (int j = 0; j < nurseAllList.RetTheNurse.Count; j++) // nurses 
                     // 2 dni urlopu po nocnych zmianach
-                    if (i > 2 && nurseAllList.RetTheNurse[j].ListShifts[i - 1] == 4 && nurseAllList.RetTheNurse[j].ListShifts[i - 2] == 4 && nurseAllList.RetTheNurse[j].ListShifts[i] != 4)
+                    if (i > 2 && nurseAllList.RetTheNurse[j].ListShifts[i - 1] == 4 && nurseAllList.RetTheNurse[j].ListShifts[i - 2] == 4 
+                        && nurseAllList.RetTheNurse[j].ListShifts[i] != 4)
                     {
 
                         nurseAllList.RetTheNurse[j].ListShifts[i] = 0;
@@ -469,6 +470,33 @@ namespace NurseScheduling
                 Console.WriteLine();
             }
             Console.WriteLine();
+        }
+
+        public string ReturnSchedule()
+        {
+            String a = "";
+            for (int i = 0; i < 35; i++)
+            {
+                a += string.Format("  {0,-2} ,",schedDayList[i].Early[0]);
+                a += string.Format("{0,-2} ,", schedDayList[i].Early[1]);
+                    if (i % 7 <5) { a += string.Format("{0,-2} ,", schedDayList[i].Early[2]); }
+                    else { a += string.Format("{0,-2} ,", " "); }
+                a += string.Format("  {0,-2} ,", schedDayList[i].Day[0]  );
+                a += string.Format("{0,-2} ,", schedDayList[i].Day[1]  );
+                if (i % 7 < 5)
+                    a += string.Format("{0,-2} ,", schedDayList[i].Day[2]  );
+                else
+                    a += string.Format("{0,-2} ,", " ");
+                a += string.Format("  {0,-2} ,", schedDayList[i].Late[0] );
+                a += string.Format("{0,-2} ,", schedDayList[i].Late[1] );
+                if (i % 7 < 5)
+                    a += string.Format("{0,-2} ,", schedDayList[i].Late[2] );
+                else
+                    a += string.Format("{0,-2} ,", " ");
+                a += string.Format("  {0,-2} ,", schedDayList[i].Night   );
+                a += string.Format("\r");
+            }
+            return a;
         }
     }
 }

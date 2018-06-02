@@ -52,7 +52,26 @@ namespace NurseScheduling
                 Console.WriteLine(shiftCount);
             }
         }
-        public void PrintLine()
+        public string ReturnLine()
+        {
+            string a="";
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 7; j++)
+                {
+                    if (listShifts[i * 7 + j] == null)
+                    {
+                        a+=String.Format("-, ");
+                    }
+                    else
+                    {
+                        a += String.Format("{0},", listShifts[i * 7 + j]);
+                    }
+                }
+            }
+            return a;
+        }
+    public void PrintLine()
         {
             for (int i = 0; i < 5; i++)
             {
@@ -125,6 +144,18 @@ namespace NurseScheduling
                 Console.WriteLine("{0} -{1}h", item.Name, item.Time);
                 item.Print();
             }
+        }
+
+
+        public string ReturnShifts()
+        {
+            string a = "";
+            foreach (var item in RetTheNurse)
+            {
+                a+=item.ReturnLine();
+                a += "\r";
+            }
+            return a;
         }
     }
 }
