@@ -27,6 +27,10 @@ namespace NurseScheduling
             startTest += TestHardConst_2;
             startTest += TestHardConst_3;
             startTest += TestHardConst_4;
+            startTest += TestHardConst_5;
+            startTest += TestHardConst_6;
+            startTest += TestHardConst_7;
+            startTest += TestHardConst_8;
 
             startTest(nurseList, schedDayList);
 
@@ -196,15 +200,15 @@ namespace NurseScheduling
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
                 for (int i = 0; i < numOfDays-1; i++)
                 {
-                    // sprawdzenie, czy po zmianie LATE nastepuje LATE lub NIGHT, inaczej kara
+                    // sprawdzenie, czy po zmianie LATE nastepuje LATE, NIGHT lub wolne, inaczej kara
                     if (ListShifts[i] == 3)
                     {
-                        if (ListShifts[i + 1] != 3 && ListShifts[i + 1] != 4)
+                        if (ListShifts[i + 1] != 3 && ListShifts[i + 1] != 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
                         {
                             punishment += hardPunish;
                         } 
-                    } // sprawdzenie, czy po zmianie NIGHT nastepuje NIGHT, inaczej kara
-                    else if (ListShifts[i] == 4)
+                    } // sprawdzenie, czy po zmianie NIGHT nastepuje NIGHT lub wolne, inaczej kara
+                    else if (ListShifts[i] == 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
                     {
                         if (ListShifts[i + 1] != 4)
                         {
@@ -239,7 +243,7 @@ namespace NurseScheduling
             }
         }
 
-        // The maximum number of night shifts is 3 per period of 5 consecutive weeks.
+        // 7. The maximum number of night shifts is 3 per period of 5 consecutive weeks.
         public static void TestHardConst_7(NurseList nurseList, List<Days> schedDayList)
         {
             for (int k = 0; k < numOfNurses; k++)
@@ -260,5 +264,26 @@ namespace NurseScheduling
             }
         }
 
+        // 8. A night shift has to be followed by at least 14 hours rest. 
+        // An exception is that once in a period of 21 days for 24 consecutive hours, 
+        // the resting time may be reduced to 8 hours.
+        public static void TestHardConst_8(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                var ListShifts = nurseList.ListNurse[k].ListShifts;
+                for (int i = 0; i < numOfDays-1; i++)
+                { // czy zmiana jest NIGHT
+                    if (ListShifts[i] == 4)
+                    {   // sprawdzenie, czy jest mniej niz 8 h odpoczynku
+                        if (ListShifts[i+1] != 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
+                        {
+                            punishment += hardPunish;
+                        }
+                    }
+                }
+               
+            }
+        }
     }
 }
