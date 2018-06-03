@@ -188,7 +188,7 @@ namespace NurseScheduling
             }
         }
 
-        // During any period of 24 consecutive hours, at least 11 hours of rest is required.
+        // 5. During any period of 24 consecutive hours, at least 11 hours of rest is required.
         public static void TestHardConst_5(NurseList nurseList, List<Days> schedDayList)
         {
             for (int k = 0; k < numOfNurses; k++)
@@ -199,14 +199,11 @@ namespace NurseScheduling
                     // sprawdzenie, czy po zmianie LATE nastepuje LATE lub NIGHT, inaczej kara
                     if (ListShifts[i] == 3)
                     {
-                        if (ListShifts[i + 1] == 3 || ListShifts[i + 1] == 4)
-                        {
-                            continue;
-                        } else
+                        if (ListShifts[i + 1] != 3 && ListShifts[i + 1] != 4)
                         {
                             punishment += hardPunish;
-                        }
-                    } // sprawdzenie, czy po zmianie NIGHT nastepuje lub NIGHT, inaczej kara
+                        } 
+                    } // sprawdzenie, czy po zmianie NIGHT nastepuje NIGHT, inaczej kara
                     else if (ListShifts[i] == 4)
                     {
                         if (ListShifts[i + 1] != 4)
@@ -217,5 +214,31 @@ namespace NurseScheduling
                 }
             }
         }
-    }
+        // 6. The number of consecutive shifts(workdays) is at most 6.
+        public static void TestHardConst_6(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                var ListShifts = nurseList.ListNurse[k].ListShifts;
+                int numOfConsecShifts = 0;
+                for (int i = 0; i < numOfDays; i++)
+                {   // jeżel dzień wolny to resetuje liczbę następujących po sobie zmian
+                    if (ListShifts[i] == 0 || ListShifts[i] == null)
+                    {
+                        numOfConsecShifts = 0;
+                    } else
+                    {
+                        ++numOfConsecShifts;
+                    }
+
+                    if(numOfConsecShifts > 6)
+                    {
+                        punishment += hardPunish;
+                    }
+                }
+            }
+        }
+
+
+        }
 }
