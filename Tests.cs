@@ -32,6 +32,7 @@ namespace NurseScheduling
             startTest += TestHardConst_7;
             startTest += TestHardConst_8;
             startTest += TestHardConst_9;
+            startTest += TestHardConst_10;
 
             startTest(nurseList, schedDayList);
 
@@ -304,6 +305,23 @@ namespace NurseScheduling
                                 punishment += hardPunish;
                             }
                         }
+                    }
+                }
+
+            }
+        }
+
+        // 10. The number of consecutive night shifts is at most 3.
+        public static void TestHardConst_10(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                var ListShifts = nurseList.ListNurse[k].ListShifts;
+                for (int i = 0; i < numOfDays - 3; i++)
+                { // czy 4 zmiany pod rzad są NIGHT
+                    if (ListShifts[i] == 4  && ListShifts[i+1] == 4 && ListShifts[i+2] == 4 && ListShifts[i + 3] == 4)
+                    {
+                        punishment += hardPunish;
                     }
                 }
 
