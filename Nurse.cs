@@ -10,7 +10,7 @@ namespace NurseScheduling
     public class Nurse
     {
         private int?[] listShifts = new int?[35];
-
+        private int shiftCount;
 
         public string Name { get; set; }
         public int Number { get; set; }
@@ -41,7 +41,7 @@ namespace NurseScheduling
                     }
                 }
                 Console.Write(" ");
-                int shiftCount = 0;
+                shiftCount = 0;
                 for (int j = 0; j < 7; j++)
                 {
                     if (ListShifts[i * 7 + j] > 0)
