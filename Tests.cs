@@ -35,6 +35,7 @@ namespace NurseScheduling
             startTest += TestHardConst_10;
             startTest += TestSoftConst_1;
             startTest += TestSoftConst_3;
+            startTest += TestSoftConst_6;
 
             startTest(nurseList, schedDayList);
 
@@ -401,6 +402,36 @@ namespace NurseScheduling
 
                     }
                  
+                }
+            }
+        }
+
+        // 6.S For employees with availability of 30-48 hours per week, within one week the number of shifts is within the range 4-5.
+        public static void TestSoftConst_6(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                if (nurseList.ListNurse[k].Time >= 30 && nurseList.ListNurse[k].Time <= 48)
+                {
+                    var ListShifts = nurseList.ListNurse[k].ListShifts;
+                    int numOfShiftsPerWeek;
+                    for (int i = 0; i < numOfWeeks; i++)
+                    {
+                        numOfShiftsPerWeek = 0;
+                        for (int j = 0; j < 7; j++)
+                        {
+                            if (ListShifts[i * 7 + j] > 0) // zliczanie zmian w tygodniu
+                            {
+                                ++numOfShiftsPerWeek;
+                            }
+                        }
+
+                        if(numOfShiftsPerWeek != 4 && numOfShiftsPerWeek != 5)
+                        {
+                            punishment += 10;
+                        }
+
+                    }
                 }
             }
         }
