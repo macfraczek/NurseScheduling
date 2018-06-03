@@ -24,6 +24,8 @@ namespace NurseScheduling
             nurseList.WriteShiftsTable();
             nurseList.WriteShifts();
 
+            Console.WriteLine("\nPunishment: " + Tests.Punishment);
+
             SaveTo.SaveToCsv(sche,nurseList);
 
 
