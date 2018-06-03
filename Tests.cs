@@ -33,6 +33,7 @@ namespace NurseScheduling
             startTest += TestHardConst_8;
             startTest += TestHardConst_9;
             startTest += TestHardConst_10;
+            startTest += TestSoftConst_1;
 
             startTest(nurseList, schedDayList);
 
@@ -322,6 +323,40 @@ namespace NurseScheduling
                     if (ListShifts[i] == 4  && ListShifts[i+1] == 4 && ListShifts[i+2] == 4 && ListShifts[i + 3] == 4)
                     {
                         punishment += hardPunish;
+                    }
+                }
+
+            }
+        }
+
+        // 1.S For the period of Friday 22:00 to Monday 0:00 a nurse should have either no shifts or at least 2 shifts (‘Complete Weekend’).
+        public static void TestSoftConst_1(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                var ListShifts = nurseList.ListNurse[k].ListShifts;
+                for (int i = 0; i < numOfWeeks; i++)
+                { // czy w piątek po 22:00 wolne
+                    if (ListShifts[i * 7 + 4] != 3 && ListShifts[i * 7 + 4] != 4)
+                    {   // czy pielegniarka pracuje w Sobotę i Niedzielę
+                        if (ListShifts[i * 7 + 5] > 0 && ListShifts[i * 7 + 6] > 0)
+                        {
+                            continue; 
+                        } else
+                        {
+                            punishment += 1000;
+                        }
+
+                    }
+                    else // piątek po 22:00 pracuje
+                    { // potrzebna jeszcze jedna zmiana do 'Complete Weekend'
+                        if (ListShifts[i * 7 + 5] > 0 || ListShifts[i * 7 + 6] > 0)
+                        {
+                            continue;
+                        } else
+                        {
+                            punishment += 1000;
+                        }
                     }
                 }
 
