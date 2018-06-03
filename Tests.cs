@@ -31,6 +31,7 @@ namespace NurseScheduling
             startTest += TestHardConst_6;
             startTest += TestHardConst_7;
             startTest += TestHardConst_8;
+            startTest += TestHardConst_9;
 
             startTest(nurseList, schedDayList);
 
@@ -283,6 +284,29 @@ namespace NurseScheduling
                     }
                 }
                
+            }
+        }
+
+        // 9. Following a series of at least 2 consecutive night shifts a 42 hours rest is required. 
+        public static void TestHardConst_9(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                var ListShifts = nurseList.ListNurse[k].ListShifts;
+                for (int i = 0; i < numOfDays - 3; i++)
+                { // czy zmiana jest NIGHT
+                    if (ListShifts[i] == 4)
+                    {   // sprawdzenie, czy kolejna zmiana jest NIGHT
+                        if (ListShifts[i + 1] == 4)
+                        {   // sprawdzenie, czy 2 kolejne dni są wolne
+                            if (ListShifts[i + 2] != 0 && ListShifts[i + 2] != null  && ListShifts[i + 3] != 0 && ListShifts[i + 3] != null)
+                            {
+                                punishment += hardPunish;
+                            }
+                        }
+                    }
+                }
+
             }
         }
     }
