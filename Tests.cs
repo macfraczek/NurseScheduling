@@ -194,9 +194,26 @@ namespace NurseScheduling
             for (int k = 0; k < numOfNurses; k++)
             {
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
-                for (int i = 0; i < numOfDays; i++)
+                for (int i = 0; i < numOfDays-1; i++)
                 {
-
+                    // sprawdzenie, czy po zmianie LATE nastepuje LATE lub NIGHT, inaczej kara
+                    if (ListShifts[i] == 3)
+                    {
+                        if (ListShifts[i + 1] == 3 || ListShifts[i + 1] == 4)
+                        {
+                            continue;
+                        } else
+                        {
+                            punishment += hardPunish;
+                        }
+                    } // sprawdzenie, czy po zmianie NIGHT nastepuje lub NIGHT, inaczej kara
+                    else if (ListShifts[i] == 4)
+                    {
+                        if (ListShifts[i + 1] != 4)
+                        {
+                            punishment += hardPunish;
+                        }                      
+                    }
                 }
             }
         }
