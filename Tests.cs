@@ -222,7 +222,7 @@ namespace NurseScheduling
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
                 int numOfConsecShifts = 0;
                 for (int i = 0; i < numOfDays; i++)
-                {   // jeżel dzień wolny to resetuje liczbę następujących po sobie zmian
+                {   // jeżeli dzień wolny to resetuje liczbę następujących po sobie zmian
                     if (ListShifts[i] == 0 || ListShifts[i] == null)
                     {
                         numOfConsecShifts = 0;
@@ -239,6 +239,26 @@ namespace NurseScheduling
             }
         }
 
-
+        // The maximum number of night shifts is 3 per period of 5 consecutive weeks.
+        public static void TestHardConst_7(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                var ListShifts = nurseList.ListNurse[k].ListShifts;
+                int numOfNights = 0;
+                for (int i = 0; i < numOfDays; i++)
+                { // czy zmiana jest NIGHT
+                    if(ListShifts[i] == 4)
+                    {
+                        ++numOfNights;
+                    }
+                }
+                if(numOfNights > 3)
+                {
+                    punishment += hardPunish;
+                }
+            }
         }
+
+    }
 }
