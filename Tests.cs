@@ -37,6 +37,9 @@ namespace NurseScheduling
             startTest += TestSoftConst_3;
             startTest += TestSoftConst_6;
             startTest += TestSoftConst_8;
+            startTest += TestSoftConst_11;
+            startTest += TestSoftConst_12;
+
 
             startTest(nurseList, schedDayList);
 
@@ -467,6 +470,48 @@ namespace NurseScheduling
                             ++numOfConsecShifts;
                         }
 
+                    }
+                }
+            }
+        }
+
+
+        // 11.S For all employees the length of a series of LATE shifts should be within the range of 2-3. It could be within another series.
+        public static void TestSoftConst_11(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {               
+                    var ListShifts = nurseList.ListNurse[k].ListShifts;
+                    int numOfConsecLates = 0;
+                   
+                    for (int i = 0; i < numOfDays; i++)
+                    {
+                        if (ListShifts[i] == 3)
+                        {
+                            ++numOfConsecLates;
+                        } // jeżeli zmiana nie jest LATE
+                        else if (numOfConsecLates > 0 && numOfConsecLates != 2 && numOfConsecLates != 3)
+                        {
+                            punishment += 10;
+                            numOfConsecLates = 0;
+                        }
+                       
+                    }
+            }           
+        }
+
+        // 12.S An early shift after a day shift should be avoided.
+        public static void TestSoftConst_12(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                var ListShifts = nurseList.ListNurse[k].ListShifts;
+                
+                for (int i = 0; i < numOfDays-1; i++)
+                {
+                    if (ListShifts[i] == 1 && ListShifts[i + 1] == 2)
+                    {
+                        punishment += 5;
                     }
                 }
             }
