@@ -34,6 +34,7 @@ namespace NurseScheduling
             startTest += TestHardConst_9;
             startTest += TestHardConst_10;
             startTest += TestSoftConst_1;
+            startTest += TestSoftConst_3;
 
             startTest(nurseList, schedDayList);
 
@@ -360,6 +361,47 @@ namespace NurseScheduling
                     }
                 }
 
+            }
+        }
+
+        // 3.S For employees with availability of 30-48 hours per week, the length of a series of night shifts should be within the range 2-3. It could be before another series.
+        public static void TestSoftConst_3(NurseList nurseList, List<Days> schedDayList)
+        {
+            for (int k = 0; k < numOfNurses; k++)
+            {
+                if (nurseList.ListNurse[k].Time >= 30 && nurseList.ListNurse[k].Time <= 48)
+                {
+                    var ListShifts = nurseList.ListNurse[k].ListShifts;
+                    
+                    for (int i = 0; i < numOfDays-2; i++) {
+                        int numOfConsecNights = 0;
+                        // czy zmiana jest NIGHT
+                        if (ListShifts[i] == 4)
+                        {
+                            ++numOfConsecNights;
+                            if (ListShifts[i+1] == 4)
+                            {
+                                ++numOfConsecNights;
+                            }
+
+                            if (ListShifts[i + 2] == 4)
+                            {
+                                ++numOfConsecNights;
+                            }
+                        }
+
+                        if (numOfConsecNights != 2 && numOfConsecNights != 3)
+                        {
+                            punishment += 1000;
+                        }
+                        else
+                        {
+                            i += numOfConsecNights-1;
+                        }
+
+                    }
+                 
+                }
             }
         }
     }
