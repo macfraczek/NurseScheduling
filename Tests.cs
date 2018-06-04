@@ -395,11 +395,11 @@ namespace NurseScheduling
                             }
                         }
 
-                        if (numOfConsecNights != 2 && numOfConsecNights != 3)
+                        if (numOfConsecNights > 0 && numOfConsecNights != 2 && numOfConsecNights != 3)
                         {
                             punishment += 1000;
                         }
-                        else
+                        else if (numOfConsecNights == 2 || numOfConsecNights == 3)
                         {
                             i += numOfConsecNights-1;
                         }
