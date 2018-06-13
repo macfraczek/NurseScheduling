@@ -1,28 +1,27 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace NurseScheduling
+﻿namespace NurseScheduling
 {
+    using System;
+    using System.Collections.Generic;
 
     public static class Tests
     {
-        private static int punishment = 0;
         private const int hardPunish = 1000000;
+        private const int sPunish1000 = 1000;
+        private const int sPunish10= 10;
+        private const int sPunish5 = 5;
         private static int numOfDays = 35;
         private static int numOfWeeks = 5;
         private static int numOfNurses = 16;
 
 
-        public static int Punishment { get => punishment; set => punishment = value; }
+        public static long Punishment { get; private set ; }
 
         public delegate void TestsList(NurseList nurseList, List<Days> schedDayList);
         public static TestsList startTest;
 
         public static void InitializeTests(NurseList nurseList, List<Days> schedDayList)
         {
+            Punishment = 0;
             startTest = TestHardConst_1;
             startTest += TestHardConst_2;
             startTest += TestHardConst_3;
@@ -43,7 +42,6 @@ namespace NurseScheduling
 
             startTest(nurseList, schedDayList);
 
-            Console.WriteLine($"Punishment : {Tests.Punishment}");
         }
 
         //1.	Cover needs to be fulfilled (i.e. no shifts must be left unassigned).
@@ -56,13 +54,13 @@ namespace NurseScheduling
                     for (int k = 0; k < 3; k++)
                     {
                         if (schedDayList[i].Early[k] == 0)
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
 
                         if (schedDayList[i].Day[k] == 0)
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
 
                         if (schedDayList[i].Late[k] == 0)
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
                     }
 
                 }
@@ -71,27 +69,29 @@ namespace NurseScheduling
                     for (int k = 0; k < 2; k++)
                     {
                         if (schedDayList[i].Early[k] == 0)
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
 
                         if (schedDayList[i].Day[k] == 0)
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
 
                         if (schedDayList[i].Late[k] == 0)
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
                     }
                 }
 
                 if (schedDayList[i].Night == 0)
-                    punishment += hardPunish;
+                    Punishment += hardPunish;
             }
 
         }
+        
         //2.	For each day a nurse may start only one shift.
         public static void TestHardConst_2(NurseList nurseList, List<Days> schedDayList)
         {
             // To jest spełnione z założenia gdzie pielegniarka ma miejsce tylko na jedną zmiane.
             return;
         }
+        
         //3.Within a scheduling period a nurse is allowed
         //to exceed the number of hours for whichthey are available for their department by at most 4 hours.
         public static void TestHardConst_3(NurseList nurseList, List<Days> schedDayList)
@@ -110,7 +110,7 @@ namespace NurseScheduling
                         }
                     }
                     if (shiftCount > nurseList.RetTheNurse[k].Time + 4)
-                        punishment += hardPunish;
+                        Punishment += hardPunish;
                 }
             }
         }
@@ -196,7 +196,7 @@ namespace NurseScheduling
 
                 if (freeWeekends < 2)
                 {
-                    punishment += hardPunish;
+                    Punishment += hardPunish;
                 }
             }
         }
@@ -214,19 +214,20 @@ namespace NurseScheduling
                     {
                         if (ListShifts[i + 1] != 3 && ListShifts[i + 1] != 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
                         {
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
                         } 
                     } // sprawdzenie, czy po zmianie NIGHT nastepuje NIGHT lub wolne, inaczej kara
                     else if (ListShifts[i] == 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
                     {
                         if (ListShifts[i + 1] != 4)
                         {
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
                         }                      
                     }
                 }
             }
         }
+        
         // 6. The number of consecutive shifts(workdays) is at most 6.
         public static void TestHardConst_6(NurseList nurseList, List<Days> schedDayList)
         {
@@ -246,7 +247,7 @@ namespace NurseScheduling
 
                     if(numOfConsecShifts > 6)
                     {
-                        punishment += hardPunish;
+                        Punishment += hardPunish;
                     }
                 }
             }
@@ -268,7 +269,7 @@ namespace NurseScheduling
                 }
                 if(numOfNights > 3)
                 {
-                    punishment += hardPunish;
+                    Punishment += hardPunish;
                 }
             }
         }
@@ -287,7 +288,7 @@ namespace NurseScheduling
                     {   // sprawdzenie, czy jest mniej niz 8 h odpoczynku
                         if (ListShifts[i+1] != 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
                         {
-                            punishment += hardPunish;
+                            Punishment += hardPunish;
                         }
                     }
                 }
@@ -309,7 +310,7 @@ namespace NurseScheduling
                         {   // sprawdzenie, czy 2 kolejne dni są wolne
                             if (ListShifts[i + 2] != 0 && ListShifts[i + 2] != null  && ListShifts[i + 3] != 0 && ListShifts[i + 3] != null)
                             {
-                                punishment += hardPunish;
+                                Punishment += hardPunish;
                             }
                         }
                     }
@@ -328,7 +329,7 @@ namespace NurseScheduling
                 { // czy 4 zmiany pod rzad są NIGHT
                     if (ListShifts[i] == 4  && ListShifts[i+1] == 4 && ListShifts[i+2] == 4 && ListShifts[i + 3] == 4)
                     {
-                        punishment += hardPunish;
+                        Punishment += hardPunish;
                     }
                 }
 
@@ -350,7 +351,7 @@ namespace NurseScheduling
                             continue; 
                         } else
                         {
-                            punishment += 1000;
+                            Punishment += sPunish1000;
                         }
 
                     }
@@ -361,7 +362,7 @@ namespace NurseScheduling
                             continue;
                         } else
                         {
-                            punishment += 1000;
+                            Punishment += sPunish1000;
                         }
                     }
                 }
@@ -397,7 +398,7 @@ namespace NurseScheduling
 
                         if (numOfConsecNights > 0 && numOfConsecNights != 2 && numOfConsecNights != 3)
                         {
-                            punishment += 1000;
+                            Punishment += sPunish1000;
                         }
                         else if (numOfConsecNights == 2 || numOfConsecNights == 3)
                         {
@@ -432,7 +433,7 @@ namespace NurseScheduling
 
                         if(numOfShiftsPerWeek != 4 && numOfShiftsPerWeek != 5)
                         {
-                            punishment += 10;
+                            Punishment += sPunish10;
                         }
 
                     }
@@ -461,7 +462,7 @@ namespace NurseScheduling
                         {
                             if (numOfConsecShifts > 0 && (numOfConsecShifts < 4 || numOfConsecShifts > 6))
                             {
-                                punishment += 10;                                
+                                Punishment += sPunish10;                                
                             }
                             numOfConsecShifts = 0;
                         }
@@ -474,8 +475,7 @@ namespace NurseScheduling
                 }
             }
         }
-
-
+        
         // 11.S For all employees the length of a series of LATE shifts should be within the range of 2-3. It could be within another series.
         public static void TestSoftConst_11(NurseList nurseList, List<Days> schedDayList)
         {
@@ -492,14 +492,14 @@ namespace NurseScheduling
                         } // jeżeli zmiana nie jest LATE
                         else if (numOfConsecLates > 0 && numOfConsecLates != 2 && numOfConsecLates != 3)
                         {
-                            punishment += 10;
+                            Punishment += sPunish10;
                             numOfConsecLates = 0;
                         }
                        
                     }
             }           
         }
-
+   
         // 12.S An early shift after a day shift should be avoided.
         public static void TestSoftConst_12(NurseList nurseList, List<Days> schedDayList)
         {
@@ -511,7 +511,7 @@ namespace NurseScheduling
                 {
                     if (ListShifts[i] == 1 && ListShifts[i + 1] == 2)
                     {
-                        punishment += 5;
+                        Punishment += sPunish5;
                     }
                 }
             }

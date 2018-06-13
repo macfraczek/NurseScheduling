@@ -11,12 +11,19 @@ namespace NurseScheduling
     {
         static void Main(string[] args)
         {
+            Int32 AvailablePunishment = 23000000;
+
 
             NurseList nurseList = new NurseList();
             var sche = new Schedule();
-            sche.SetSchedule(nurseList);
+            do
+            {
+                nurseList = new NurseList();
+                sche = new Schedule();
+                sche.SetSchedule(nurseList);
+                Tests.InitializeTests(nurseList, sche.SchedDayList);
+            } while (Tests.Punishment > AvailablePunishment);
 
-            Tests.InitializeTests(nurseList, sche.SchedDayList);
 
             //sche.WriteSchedule();
             sche.WriteScheduleTable();
@@ -24,7 +31,7 @@ namespace NurseScheduling
             nurseList.WriteShiftsTable();
             nurseList.WriteShifts();
 
-            Console.WriteLine("\nPunishment: " + Tests.Punishment);
+            Console.WriteLine($"\nPunishment : {Tests.Punishment}");
 
             SaveTo.SaveToCsv(sche,nurseList);
 
