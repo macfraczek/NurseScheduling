@@ -1,18 +1,38 @@
 ﻿namespace NurseScheduling
 {
-    using System;
     using System.Collections.Generic;
 
     public static class Tests
     {
         private const int hardPunish = 1000000;
         private const int sPunish1000 = 1000;
-        private const int sPunish10= 10;
+        private const int sPunish10 = 10;
         private const int sPunish5 = 5;
         private static int numOfDays = 35;
         private static int numOfWeeks = 5;
         private static int numOfNurses = 16;
 
+        // “week -1” as a starting point for the new 5-week schedule.
+        // Shifts are: 1-early, 2-day, 3-late, 4-night, 5-rest.
+        // Each row represents a nurse.
+        readonly static int[][] week0 = {
+           new int[] {4, 4, 5, 5, 5, 5, 5},
+           new int[] {3, 3, 4, 4, 5, 5, 5},
+           new int[] {5, 5, 1, 1, 4, 4, 4},
+           new int[] {1, 1, 5, 5, 5, 1, 1},
+           new int[] {1, 1, 1, 5, 5, 1, 1},
+           new int[] {3, 5, 5, 5, 1, 3, 3},
+           new int[] {3, 3, 5, 5, 3, 3, 3},
+           new int[] {5, 5, 5, 1, 1, 2, 2},
+           new int[] {5, 5, 1, 1, 1, 2, 2},
+           new int[] {1, 1, 3, 3, 3, 5, 5},
+           new int[] {2, 3, 3, 3, 5, 5, 5},
+           new int[] {5, 2, 3, 3, 3, 5, 5},
+           new int[] {2, 2, 2, 2, 2, 5, 5},
+           new int[] {2, 2, 2, 5, 5, 5, 5},
+           new int[] {5, 5, 5, 2, 2, 5, 5},
+           new int[] {5, 5, 2, 2, 2, 5, 5}
+        };
 
         public static long Punishment { get; private set ; }
 
@@ -39,7 +59,7 @@
             startTest += TestSoftConst_11;
             startTest += TestSoftConst_12;
 
-
+      
             startTest(nurseList, schedDayList);
 
         }
@@ -207,12 +227,30 @@
             for (int k = 0; k < numOfNurses; k++)
             {
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
-                for (int i = 0; i < numOfDays-1; i++)
+
+                //sprawdzenie czy po ostatnim dniu week'u-1 następuje odpowiedni odpoczynek
+                if (week0[k][6] == 3)
                 {
-                    // sprawdzenie, czy po zmianie LATE nastepuje LATE, NIGHT lub wolne, inaczej kara
+                    if (ListShifts[0] == 1 || ListShifts[0] == 2)
+                    {
+                        Punishment += hardPunish;
+                    }
+                }
+
+                if (week0[k][6] == 4)
+                {
+                    if (ListShifts[0] == 4 && ListShifts[0] != 0 && ListShifts[0] != null)
+                    {
+                        Punishment += hardPunish;
+                    }
+                }
+
+                for (int i = 0; i < numOfDays-1; i++)
+                {   
+                    // sprawdzenie, czy po zmianie LATE nastepuje EARLY lub DAY, wtedy kara                  
                     if (ListShifts[i] == 3)
                     {
-                        if (ListShifts[i + 1] != 3 && ListShifts[i + 1] != 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
+                        if (ListShifts[i + 1] == 1 || ListShifts[i + 1] == 2)
                         {
                             Punishment += hardPunish;
                         } 
@@ -248,6 +286,7 @@
                     if(numOfConsecShifts > 6)
                     {
                         Punishment += hardPunish;
+                        numOfConsecShifts = 0;
                     }
                 }
             }
@@ -509,7 +548,7 @@
                 
                 for (int i = 0; i < numOfDays-1; i++)
                 {
-                    if (ListShifts[i] == 1 && ListShifts[i + 1] == 2)
+                    if (ListShifts[i] == 2 && ListShifts[i + 1] == 1)
                     {
                         Punishment += sPunish5;
                     }
