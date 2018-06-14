@@ -414,13 +414,37 @@
             for (int k = 0; k < numOfNurses; k++)
             {
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
+                int numOfConsecNights = 0;
 
-                for (int i = 0; i < numOfDays - 3; i++)
-                { // czy 4 zmiany pod rzad są NIGHT
-                    if (ListShifts[i] == 4  && ListShifts[i+1] == 4 && ListShifts[i+2] == 4 && ListShifts[i + 3] == 4)
+                // zliczenie NIGHTS występujących z rzędu pod koniec week0
+                for (int j = 4; j < 7; j++)
+                {
+                    if (week0[k][j] == 4)
                     {
-                        Punishment += hardPunish;
+                        ++numOfConsecNights;
                     }
+                    else
+                    {
+                        numOfConsecNights = 0;
+                    }
+                }
+
+                for (int i = 0; i < numOfDays - 1; i++)
+                {
+                    // czy zmiana jest NIGHT
+                    if (ListShifts[i] == 4)
+                    {
+                        ++numOfConsecNights;
+                        if (numOfConsecNights > 3)
+                        {
+                            Punishment += hardPunish;
+                        }
+                    }
+                    else
+                    {
+                         numOfConsecNights = 0;
+                    }
+
                 }
 
             }
