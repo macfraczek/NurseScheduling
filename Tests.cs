@@ -520,7 +520,8 @@
                            if (numOfConsecNights > 0 && numOfConsecNights != 2 && numOfConsecNights != 3)
                            {
                                 Punishment += sPunish1000;
-                           }                         
+                           }
+                            numOfConsecNights = 0;
                         }
                     }                 
                 }
@@ -567,7 +568,19 @@
                     var ListShifts = nurseList.ListNurse[k].ListShifts;
                     int numOfConsecShifts = 0;
 
-                    if(ListShifts[0] > 0)
+                    for (int j = 1; j < 7; j++)
+                    {
+                        if (week0[k][j] != 5)
+                        {
+                            ++numOfConsecShifts;
+                        }
+                        else
+                        {
+                            numOfConsecShifts = 0;
+                        }
+                    }
+
+                    if (ListShifts[0] > 0)
                     {
                         ++numOfConsecShifts;
                     }
