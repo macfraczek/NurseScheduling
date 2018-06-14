@@ -610,10 +610,22 @@
         {
             for (int k = 0; k < numOfNurses; k++)
             {               
-                    var ListShifts = nurseList.ListNurse[k].ListShifts;
-                    int numOfConsecLates = 0;
-                   
-                    for (int i = 0; i < numOfDays; i++)
+                var ListShifts = nurseList.ListNurse[k].ListShifts;
+                int numOfConsecLates = 0;
+
+                for (int j = 4; j < 7; j++)
+                {
+                    if (week0[k][j] == 3)
+                    {
+                        ++numOfConsecLates;
+                    }
+                    else
+                    {
+                        numOfConsecLates = 0;
+                    }
+                }
+
+                for (int i = 0; i < numOfDays; i++)
                     {
                         if (ListShifts[i] == 3)
                         {
