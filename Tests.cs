@@ -429,7 +429,7 @@
                     }
                 }
 
-                for (int i = 0; i < numOfDays - 1; i++)
+                for (int i = 0; i < numOfDays; i++)
                 {
                     // czy zmiana jest NIGHT
                     if (ListShifts[i] == 4)
@@ -438,6 +438,7 @@
                         if (numOfConsecNights > 3)
                         {
                             Punishment += hardPunish;
+                            numOfConsecNights = 0;
                         }
                     }
                     else
@@ -492,35 +493,36 @@
                 if (nurseList.ListNurse[k].Time >= 30 && nurseList.ListNurse[k].Time <= 48)
                 {
                     var ListShifts = nurseList.ListNurse[k].ListShifts;
-                    
-                    for (int i = 0; i < numOfDays-2; i++) {
-                        int numOfConsecNights = 0;
+                    int numOfConsecNights = 0;
+
+                    // zliczenie NIGHTS występujących z rzędu pod koniec week0
+                    for (int j = 4; j < 7; j++)
+                    {
+                        if (week0[k][j] == 4)
+                        {
+                            ++numOfConsecNights;
+                        }
+                        else
+                        {
+                            numOfConsecNights = 0;
+                        }
+                    }
+
+                    for (int i = 0; i < numOfDays; i++) {
+
                         // czy zmiana jest NIGHT
                         if (ListShifts[i] == 4)
                         {
                             ++numOfConsecNights;
-                            if (ListShifts[i+1] == 4)
-                            {
-                                ++numOfConsecNights;
-                            }
-
-                            if (ListShifts[i + 2] == 4)
-                            {
-                                ++numOfConsecNights;
-                            }
                         }
-
-                        if (numOfConsecNights > 0 && numOfConsecNights != 2 && numOfConsecNights != 3)
+                        else
                         {
-                            Punishment += sPunish1000;
+                           if (numOfConsecNights > 0 && numOfConsecNights != 2 && numOfConsecNights != 3)
+                           {
+                                Punishment += sPunish1000;
+                           }                         
                         }
-                        else if (numOfConsecNights == 2 || numOfConsecNights == 3)
-                        {
-                            i += numOfConsecNights-1;
-                        }
-
-                    }
-                 
+                    }                 
                 }
             }
         }
