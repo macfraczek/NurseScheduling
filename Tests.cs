@@ -366,18 +366,43 @@
             for (int k = 0; k < numOfNurses; k++)
             {
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
-                for (int i = 0; i < numOfDays - 3; i++)
-                { // czy zmiana jest NIGHT
+                int numOfConsecNights = 0;
+                // zliczenie ile pod koniec week -1 następowało nocnych zmian z rzędu
+               for(int j = 0; j < 7; j++)
+               {
+                  if(week0[k][j] == 4)
+                   {
+                        ++numOfConsecNights;
+                   }
+                  else
+                   {
+                      numOfConsecNights = 0;
+                   }
+               }
+
+                for (int i = 0; i < numOfDays - 1; i++)
+                {
+                    // czy zmiana jest NIGHT
                     if (ListShifts[i] == 4)
-                    {   // sprawdzenie, czy kolejna zmiana jest NIGHT
-                        if (ListShifts[i + 1] == 4)
-                        {   // sprawdzenie, czy 2 kolejne dni są wolne
-                            if (ListShifts[i + 2] != 0 && ListShifts[i + 2] != null  && ListShifts[i + 3] != 0 && ListShifts[i + 3] != null)
+                    {
+                        ++numOfConsecNights;
+                    }
+                    
+                    // zmiana inna niż NIGHT lub wolne
+                    else
+                    {
+                        // czy wystąpiły przynajmniej dwie nocne zmiany pod rząd
+                        if (numOfConsecNights >= 2)
+                        {
+                            // jeżeli 2 kolejne dni nie są wolne, to kara
+                            if (ListShifts[i] != null && ListShifts[i] != 0 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
                             {
                                 Punishment += hardPunish;
                             }
+                            
                         }
-                    }
+                        numOfConsecNights = 0;
+                    }          
                 }
 
             }
@@ -389,6 +414,7 @@
             for (int k = 0; k < numOfNurses; k++)
             {
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
+
                 for (int i = 0; i < numOfDays - 3; i++)
                 { // czy 4 zmiany pod rzad są NIGHT
                     if (ListShifts[i] == 4  && ListShifts[i+1] == 4 && ListShifts[i+2] == 4 && ListShifts[i + 3] == 4)
