@@ -336,6 +336,16 @@
             for (int k = 0; k < numOfNurses; k++)
             {
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
+
+                // po zmianie NIGHT musi być NIGHT lub wolne
+                if(week0[k][6] == 4)
+                {
+                    if (ListShifts[0] != 4 && ListShifts[0] != 0 && ListShifts[0] != null)
+                    {
+                        Punishment += hardPunish;
+                    }
+                }
+
                 for (int i = 0; i < numOfDays-1; i++)
                 { // czy zmiana jest NIGHT
                     if (ListShifts[i] == 4)
