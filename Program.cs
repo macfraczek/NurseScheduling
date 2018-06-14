@@ -11,7 +11,7 @@ namespace NurseScheduling
     {
         static void Main(string[] args)
         {
-            Int32 AvailablePunishment = 23000000;
+            Int32 AvailablePunishment = 43000000;
 
 
             NurseList nurseList = new NurseList();

@@ -1,5 +1,6 @@
 ﻿namespace NurseScheduling
 {
+    using System;
     using System.Collections.Generic;
 
     public static class Tests
@@ -269,10 +270,24 @@
         // 6. The number of consecutive shifts(workdays) is at most 6.
         public static void TestHardConst_6(NurseList nurseList, List<Days> schedDayList)
         {
+           
             for (int k = 0; k < numOfNurses; k++)
-            {
+            {             
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
                 int numOfConsecShifts = 0;
+
+                // zliczenie ile następujących po sobie dni pracuje pielęgniarka w ostatnich dniach poprzedniego harmonogramu               
+               for(int j = 0; j < 7; ++j)
+                {                   
+                    if (week0[k][j] != 5)
+                    {
+                        ++numOfConsecShifts;
+                    
+                    } else
+                        numOfConsecShifts = 0;
+                }
+               
+
                 for (int i = 0; i < numOfDays; i++)
                 {   // jeżeli dzień wolny to resetuje liczbę następujących po sobie zmian
                     if (ListShifts[i] == 0 || ListShifts[i] == null)
@@ -545,6 +560,11 @@
             for (int k = 0; k < numOfNurses; k++)
             {
                 var ListShifts = nurseList.ListNurse[k].ListShifts;
+
+                if(week0[k][6] == 2 && ListShifts[0] == 1)
+                {
+                    Punishment += sPunish5;
+                }
                 
                 for (int i = 0; i < numOfDays-1; i++)
                 {
