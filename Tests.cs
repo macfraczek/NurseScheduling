@@ -245,7 +245,7 @@
                     freeWeekendHours = 48; // Wolna Sobota i Niedziela
 
                     // sprawdzenie brzegów weekendu
-                    if (ListShifts[friday] == null || ListShifts[friday] == 0 || ListShifts[friday] == 4) // jest wolny weekend, nie ma potrzeby sprawdzac poniedzialku
+                    if (ListShifts[friday] == null || ListShifts[friday] == 0) // jest wolny weekend, nie ma potrzeby sprawdzac poniedzialku
                     {
                         freeWeekendHours += 17;
 
