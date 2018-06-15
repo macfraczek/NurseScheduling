@@ -6,6 +6,7 @@
     public static class Tests
     {
         private const int hardPunish = 1000000;
+        public static int hardBroken = 0;
         private const int sPunish1000 = 1000;
         private const int sPunish10 = 10;
         private const int sPunish5 = 5;
@@ -43,6 +44,7 @@
         public static void InitializeTests(NurseList nurseList, List<Days> schedDayList)
         {
             Punishment = 0;
+            hardBroken = 0;
             startTest = TestHardConst_1;
             startTest += TestHardConst_2;
             startTest += TestHardConst_3;
@@ -74,14 +76,24 @@
                 {
                     for (int k = 0; k < 3; k++)
                     {
-                        if (schedDayList[i].Early[k] == 0)
+                        if (schedDayList[i].Early[k] == 0) {
+
                             Punishment += hardPunish;
+                            hardBroken++;
+                        }
 
                         if (schedDayList[i].Day[k] == 0)
+                        {
                             Punishment += hardPunish;
+                            hardBroken++;
+                        }
+
 
                         if (schedDayList[i].Late[k] == 0)
+                        {
                             Punishment += hardPunish;
+                            hardBroken++;
+                        }
                     }
 
                 }
@@ -90,18 +102,28 @@
                     for (int k = 0; k < 2; k++)
                     {
                         if (schedDayList[i].Early[k] == 0)
+                        {
                             Punishment += hardPunish;
-
+                            hardBroken++;
+                        }
                         if (schedDayList[i].Day[k] == 0)
+                        {
                             Punishment += hardPunish;
-
+                            hardBroken++;
+                        }
                         if (schedDayList[i].Late[k] == 0)
+                        {
                             Punishment += hardPunish;
+                            hardBroken++;
+                        }
                     }
                 }
 
                 if (schedDayList[i].Night == 0)
+                {
                     Punishment += hardPunish;
+                    hardBroken++;
+                }
             }
 
         }
@@ -131,7 +153,10 @@
                         }
                     }
                     if (shiftCount > nurseList.RetTheNurse[k].Time + 4)
+                    {
                         Punishment += hardPunish;
+                        hardBroken++;
+                    }
                 }
             }
         }
@@ -218,6 +243,7 @@
                 if (freeWeekends < 2)
                 {
                     Punishment += hardPunish;
+                    hardBroken++;
                 }
             }
         }
@@ -235,6 +261,7 @@
                     if (ListShifts[0] == 1 || ListShifts[0] == 2)
                     {
                         Punishment += hardPunish;
+                        hardBroken++;
                     }
                 }
 
@@ -242,7 +269,8 @@
                 {
                     if (ListShifts[0] == 4 && ListShifts[0] != 0 && ListShifts[0] != null)
                     {
-                        Punishment += hardPunish;
+                       Punishment += hardPunish;
+                        hardBroken++;
                     }
                 }
 
@@ -254,6 +282,7 @@
                         if (ListShifts[i + 1] == 1 || ListShifts[i + 1] == 2)
                         {
                             Punishment += hardPunish;
+                            hardBroken++;
                         } 
                     } // sprawdzenie, czy po zmianie NIGHT nastepuje NIGHT lub wolne, inaczej kara
                     else if (ListShifts[i] == 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
@@ -261,6 +290,7 @@
                         if (ListShifts[i + 1] != 4)
                         {
                             Punishment += hardPunish;
+                            hardBroken++;
                         }                      
                     }
                 }
@@ -301,6 +331,7 @@
                     if(numOfConsecShifts > 6)
                     {
                         Punishment += hardPunish;
+                        hardBroken++;
                         numOfConsecShifts = 0;
                     }
                 }
@@ -324,6 +355,7 @@
                 if(numOfNights > 3)
                 {
                     Punishment += hardPunish;
+                    hardBroken++;
                 }
             }
         }
@@ -343,6 +375,7 @@
                     if (ListShifts[0] != 4 && ListShifts[0] != 0 && ListShifts[0] != null)
                     {
                         Punishment += hardPunish;
+                        hardBroken++;
                     }
                 }
 
@@ -353,6 +386,7 @@
                         if (ListShifts[i+1] != 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
                         {
                             Punishment += hardPunish;
+                            hardBroken++;
                         }
                     }
                 }
@@ -398,6 +432,7 @@
                             if (ListShifts[i] != null && ListShifts[i] != 0 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
                             {
                                 Punishment += hardPunish;
+                                hardBroken++;
                             }
                             
                         }
