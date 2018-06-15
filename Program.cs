@@ -11,7 +11,7 @@ namespace NurseScheduling
     {
         static void Main(string[] args)
         {
-            Int32 AvailablePunishment = 28000000;
+            Int32 AvailablePunishment = 48000000;
 
 
             NurseList nurseList = new NurseList();
@@ -33,6 +33,7 @@ namespace NurseScheduling
 
             Console.WriteLine($"\nPunishment : {Tests.Punishment}");
             Console.WriteLine($"\nHard Broken : {Tests.hardBroken}");
+            Console.WriteLine($"\nHard 1 Broken : {Tests.hard1Broken}");
 
             SaveTo.SaveToCsv(sche,nurseList);
 

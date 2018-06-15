@@ -7,6 +7,7 @@
     {
         private const int hardPunish = 1000000;
         public static int hardBroken = 0;
+        public static int hard1Broken = 0;
         private const int sPunish1000 = 1000;
         private const int sPunish10 = 10;
         private const int sPunish5 = 5;
@@ -45,6 +46,7 @@
         {
             Punishment = 0;
             hardBroken = 0;
+            hard1Broken = 0;
             startTest = TestHardConst_1;
             startTest += TestHardConst_2;
             startTest += TestHardConst_3;
@@ -76,24 +78,34 @@
                 {
                     for (int k = 0; k < 3; k++)
                     {
-                        if (schedDayList[i].Early[k] == 0) {
+                        if (schedDayList[i*7+j].Early[k] == 0) {
 
                             Punishment += hardPunish;
+                            hard1Broken++;
                             hardBroken++;
                         }
 
-                        if (schedDayList[i].Day[k] == 0)
+                        if (schedDayList[i * 7 + j].Day[k] == 0)
                         {
                             Punishment += hardPunish;
+                            hard1Broken++;
                             hardBroken++;
                         }
 
 
-                        if (schedDayList[i].Late[k] == 0)
+                        if (schedDayList[i * 7 + j].Late[k] == 0)
                         {
                             Punishment += hardPunish;
+                            hard1Broken++;
                             hardBroken++;
                         }
+                    }
+
+                    if (schedDayList[i * 7 + j].Night == 0)
+                    {
+                        Punishment += hardPunish;
+                        hardBroken++;
+                        hard1Broken++;
                     }
 
                 }
@@ -101,29 +113,34 @@
                 {
                     for (int k = 0; k < 2; k++)
                     {
-                        if (schedDayList[i].Early[k] == 0)
+                        if (schedDayList[i * 7 + j + 5].Early[k] == 0)
                         {
                             Punishment += hardPunish;
                             hardBroken++;
+                            hard1Broken++;
                         }
-                        if (schedDayList[i].Day[k] == 0)
+                        if (schedDayList[i * 7 + j + 5].Day[k] == 0)
                         {
                             Punishment += hardPunish;
                             hardBroken++;
+                            hard1Broken++;
                         }
-                        if (schedDayList[i].Late[k] == 0)
+                        if (schedDayList[i * 7 + j + 5].Late[k] == 0)
                         {
                             Punishment += hardPunish;
                             hardBroken++;
+                            hard1Broken++;
                         }
                     }
-                }
 
-                if (schedDayList[i].Night == 0)
-                {
-                    Punishment += hardPunish;
-                    hardBroken++;
+                    if (schedDayList[i * 7 + j + 5].Night == 0)
+                    {
+                        Punishment += hardPunish;
+                        hardBroken++;
+                        hard1Broken++;
+                    }
                 }
+                
             }
 
         }
@@ -156,6 +173,8 @@
                     {
                         Punishment += hardPunish;
                         hardBroken++;
+
+                        Console.WriteLine("H3");
                     }
                 }
             }
