@@ -265,23 +265,26 @@
                             freeWeekendHours += 7;
                         }
 
-                        int monday = i * 7;
-                        if (ListShifts[monday] == null || ListShifts[monday] == 0 || ListShifts[monday] == 4)
+                        if (i != numOfWeeks - 1)
                         {
-                            freeWeekendHours += 17;
+                            int monday = i * 7 + 7;
+                            if (ListShifts[monday] == null || ListShifts[monday] == 0 || ListShifts[monday] == 4)
+                            {
+                                freeWeekendHours += 17;
 
-                        }
-                        else if (ListShifts[monday] == 3)
-                        {
-                            freeWeekendHours += 14;
-                        }
-                        else if (ListShifts[monday] == 2)
-                        {
-                            freeWeekendHours += 7;
-                        }
-                        else if (ListShifts[monday] == 1)
-                        {
-                            freeWeekendHours += 8;
+                            }
+                            else if (ListShifts[monday] == 3)
+                            {
+                                freeWeekendHours += 14;
+                            }
+                            else if (ListShifts[monday] == 2)
+                            {
+                                freeWeekendHours += 7;
+                            }
+                            else if (ListShifts[monday] == 1)
+                            {
+                                freeWeekendHours += 8;
+                            }
                         }
 
                     }
