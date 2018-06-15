@@ -8,6 +8,21 @@
         private const int hardPunish = 1000000;
         public static int hardBroken = 0;
         public static int hard1Broken = 0;
+        public static int hard2Broken = 0;
+        public static int hard3Broken = 0;
+        public static int hard4Broken = 0;
+        public static int hard5Broken = 0;
+        public static int hard6Broken = 0;
+        public static int hard7Broken = 0;
+        public static int hard8Broken = 0;
+        public static int hard9Broken = 0;
+        public static int hard10Broken = 0;
+        public static int soft1Broken = 0;
+        public static int soft3Broken = 0;
+        public static int soft6Broken = 0;
+        public static int soft8Broken = 0;
+        public static int soft11Broken = 0;
+        public static int soft12Broken = 0;
         private const int sPunish1000 = 1000;
         private const int sPunish10 = 10;
         private const int sPunish5 = 5;
@@ -47,6 +62,21 @@
             Punishment = 0;
             hardBroken = 0;
             hard1Broken = 0;
+            hard2Broken = 0;
+            hard3Broken = 0;
+            hard4Broken = 0;
+            hard5Broken = 0;
+            hard6Broken = 0;
+            hard7Broken = 0;
+            hard8Broken = 0;
+            hard9Broken = 0;
+            hard10Broken = 0;
+            soft1Broken = 0;
+            soft3Broken = 0;
+            soft6Broken = 0;
+            soft8Broken = 0;
+            soft11Broken = 0;
+            soft12Broken = 0;
             startTest = TestHardConst_1;
             startTest += TestHardConst_2;
             startTest += TestHardConst_3;
@@ -173,8 +203,7 @@
                     {
                         Punishment += hardPunish;
                         hardBroken++;
-
-                        Console.WriteLine("H3");
+                        hard3Broken++;                     
                     }
                 }
             }
@@ -203,8 +232,12 @@
                     }
 
                     // sprawdzenie czy Sobota i Niedziela są wolne, jezeli nie są, to nie ma szans na wolny weekend
-                    if (ListShifts[saturday] != null || ListShifts[saturday] != 0
-                        || ListShifts[sunday] != null || ListShifts[sunday] != 0)
+                    if ((ListShifts[saturday] == null || ListShifts[saturday] == 0) &&
+                       (ListShifts[sunday] == null || ListShifts[sunday] == 0))
+                    {
+                        
+                    }
+                    else
                     {
                         break;
                     }
@@ -263,6 +296,7 @@
                 {
                     Punishment += hardPunish;
                     hardBroken++;
+                    hard4Broken++;
                 }
             }
         }
@@ -281,6 +315,7 @@
                     {
                         Punishment += hardPunish;
                         hardBroken++;
+                        hard5Broken++;
                     }
                 }
 
@@ -290,6 +325,7 @@
                     {
                        Punishment += hardPunish;
                         hardBroken++;
+                        hard5Broken++;
                     }
                 }
 
@@ -302,6 +338,7 @@
                         {
                             Punishment += hardPunish;
                             hardBroken++;
+                            hard5Broken++;
                         } 
                     } // sprawdzenie, czy po zmianie NIGHT nastepuje NIGHT lub wolne, inaczej kara
                     else if (ListShifts[i] == 4 && ListShifts[i + 1] != 0 && ListShifts[i + 1] != null)
@@ -310,6 +347,7 @@
                         {
                             Punishment += hardPunish;
                             hardBroken++;
+                            hard5Broken++;
                         }                      
                     }
                 }
@@ -351,6 +389,7 @@
                     {
                         Punishment += hardPunish;
                         hardBroken++;
+                        hard6Broken++;
                         numOfConsecShifts = 0;
                     }
                 }
@@ -375,6 +414,7 @@
                 {
                     Punishment += hardPunish;
                     hardBroken++;
+                    hard7Broken++;
                 }
             }
         }
@@ -395,6 +435,7 @@
                     {
                         Punishment += hardPunish;
                         hardBroken++;
+                        hard8Broken++;
                     }
                 }
 
@@ -406,6 +447,7 @@
                         {
                             Punishment += hardPunish;
                             hardBroken++;
+                            hard8Broken++;
                         }
                     }
                 }
@@ -452,6 +494,7 @@
                             {
                                 Punishment += hardPunish;
                                 hardBroken++;
+                                hard9Broken++;
                             }
                             
                         }
@@ -492,7 +535,9 @@
                         if (numOfConsecNights > 3)
                         {
                             Punishment += hardPunish;
+                            hardBroken++;
                             numOfConsecNights = 0;
+                            hard10Broken++;
                         }
                     }
                     else
@@ -521,6 +566,7 @@
                         } else
                         {
                             Punishment += sPunish1000;
+                            soft1Broken++;
                         }
 
                     }
@@ -532,6 +578,7 @@
                         } else
                         {
                             Punishment += sPunish1000;
+                            soft1Broken++;
                         }
                     }
                 }
@@ -574,7 +621,8 @@
                            if (numOfConsecNights > 0 && numOfConsecNights != 2 && numOfConsecNights != 3)
                            {
                                 Punishment += sPunish1000;
-                           }
+                                soft3Broken++;
+                            }
                             numOfConsecNights = 0;
                         }
                     }                 
@@ -605,6 +653,7 @@
                         if(numOfShiftsPerWeek != 4 && numOfShiftsPerWeek != 5)
                         {
                             Punishment += sPunish10;
+                            soft6Broken++;
                         }
 
                     }
@@ -645,7 +694,8 @@
                         {
                             if (numOfConsecShifts > 0 && (numOfConsecShifts < 4 || numOfConsecShifts > 6))
                             {
-                                Punishment += sPunish10;                                
+                                Punishment += sPunish10;
+                                soft8Broken++;
                             }
                             numOfConsecShifts = 0;
                         }
@@ -689,7 +739,8 @@
                         {
                             Punishment += sPunish10;
                             numOfConsecLates = 0;
-                        }
+                            soft11Broken++;
+                    }
                        
                     }
             }           
@@ -705,6 +756,7 @@
                 if(week0[k][6] == 2 && ListShifts[0] == 1)
                 {
                     Punishment += sPunish5;
+                    soft12Broken++;
                 }
                 
                 for (int i = 0; i < numOfDays-1; i++)
@@ -712,6 +764,7 @@
                     if (ListShifts[i] == 2 && ListShifts[i + 1] == 1)
                     {
                         Punishment += sPunish5;
+                        soft12Broken++;
                     }
                 }
             }
